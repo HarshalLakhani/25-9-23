@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe API</title>
+</head>
+<body>
+    <div id="parent"></div>
+
+    <script>
+      fetch('/recipe/all')
+        .then(response => response.json())
+        .then(recipes => {
+          const parentDiv = document.getElementById('parent');
+          recipes.forEach(recipe => {
+            const recipeDiv = document.createElement('div');
+            recipeDiv.innerHTML = `
+              <h3>${recipe.name}</h3>
+              <p>${recipe.description}</p>
+              <p>Preparation Time: ${recipe.preparationTime}</p>
+              <p>Cooking Time: ${recipe.cookingTime}</p>
+              <img src="${recipe.imageUrl}" alt="${recipe.name}" width="200">
+              <hr>
+            `;
+            parentDiv.appendChild(recipeDiv);
+          });
+        });
+    </script>
+</body>
+</html>
